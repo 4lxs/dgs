@@ -85,8 +85,6 @@ const options = mkOptions(OPTIONS, {
                 "colorpicker",
                 "screenrecord",
                 "system",
-                "battery",
-                "powermenu",
             ]),
         },
         launcher: {
