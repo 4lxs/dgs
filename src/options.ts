@@ -14,17 +14,17 @@ const options = mkOptions(OPTIONS, {
     theme: {
         dark: {
             primary: {
-                bg: opt("#51a4e7"),
-                fg: opt("#141414"),
+                bg: opt("#cba6f7"),
+                fg: opt("#cdd6f4"),
             },
             error: {
-                bg: opt("#e55f86"),
-                fg: opt("#141414"),
+                bg: opt("#eba0ac"),
+                fg: opt("#f38ba8"),
             },
-            bg: opt("#171717"),
-            fg: opt("#eeeeee"),
-            widget: opt("#eeeeee"),
-            border: opt("#eeeeee"),
+            bg: opt("#11111b"),
+            fg: opt("#cdd6f4"),
+            widget: opt("#585b70"),
+            border: opt("#cdd6f4"),
         },
         light: {
             primary: {
@@ -73,17 +73,16 @@ const options = mkOptions(OPTIONS, {
                 "workspaces",
                 "taskbar",
                 "expander",
-                "messages",
             ]),
             center: opt<Array<import("widget/bar/Bar").BarWidget>>([
-                "date",
+                "media",
             ]),
             end: opt<Array<import("widget/bar/Bar").BarWidget>>([
-                "media",
                 "expander",
                 "systray",
                 "colorpicker",
                 "screenrecord",
+                "battery",
                 "system",
             ]),
         },
@@ -99,11 +98,11 @@ const options = mkOptions(OPTIONS, {
             action: opt(() => App.toggleWindow("launcher")),
         },
         date: {
-            format: opt("%H:%M - %A %e."),
+            format: opt("%a %e. %H:%M"),
             action: opt(() => App.toggleWindow("datemenu")),
         },
         battery: {
-            bar: opt<"hidden" | "regular" | "whole">("regular"),
+            bar: opt<"hidden" | "regular" | "whole">("hidden"),
             charging: opt("#00D787"),
             percentage: opt(true),
             blocks: opt(7),

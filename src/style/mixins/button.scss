@@ -12,9 +12,10 @@
 
 @mixin button-active() {
     box-shadow: inset 0 0 0 $border-width $border-color;
-    background-image: $active-gradient;
-    background-color: $primary-bg;
-    color: $primary-fg;
+    // background-image: $active-gradient;
+    // background-color: $primary-bg;
+    // color: $primary-fg;
+    border-bottom-color: $primary-bg;
 }
 
 @mixin button-disabled() {
@@ -28,6 +29,7 @@
     transition: $transition;
     border-radius: $radius;
     color: $fg;
+    border-bottom: $border-width solid transparent;
 
     @if $flat {
         background-color: transparent;
@@ -61,6 +63,10 @@
                 box-shadow: inset 0 0 0 $border-width $border-color,
                     inset 0 0 0 99px $hover-bg;
             }
+        }
+
+        .icon {
+            padding: .4em;
         }
     }
 

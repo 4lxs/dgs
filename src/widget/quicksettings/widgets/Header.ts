@@ -30,25 +30,6 @@ const SysButton = (action: Action) => Widget.Button({
 
 export const Header = () => Widget.Box(
     { class_name: "header horizontal" },
-    Avatar(),
-    Widget.Box({
-        vertical: true,
-        vpack: "center",
-        children: [
-            Widget.Box({
-                visible: battery.bind("available"),
-                children: [
-                    Widget.Icon({ icon: battery.bind("icon_name") }),
-                    Widget.Label({ label: battery.bind("percent").as(p => `${p}%`) }),
-                ],
-            }),
-            Widget.Box([
-                Widget.Icon({ icon: icons.ui.time }),
-                Widget.Label({ label: uptime.bind().as(up) }),
-            ]),
-        ],
-    }),
-    Widget.Box({ hexpand: true }),
     Widget.Button({
         vpack: "center",
         child: Widget.Icon(icons.ui.settings),
@@ -58,6 +39,9 @@ export const Header = () => Widget.Box(
             App.openWindow("settings-dialog")
         },
     }),
+    Widget.Box({ hexpand: true }),
+    SysButton("sleep"),
+    SysButton("reboot"),
     SysButton("logout"),
     SysButton("shutdown"),
 )

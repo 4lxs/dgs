@@ -133,6 +133,17 @@ const Layout = (name: string, child: Child, transition?: Transition) => ({
             PopupRevealer(name, child, transition),
         ),
     ),
+    "right": () => Widget.Box({},
+        Padding(name),
+        Widget.Box(
+            {
+                hexpand: false,
+                vertical: true,
+                vexpand: true,
+            },
+            PopupRevealer(name, child, transition),
+        ),
+    ),
 })
 
 export default ({

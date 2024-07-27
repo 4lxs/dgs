@@ -11,7 +11,7 @@ const getPlayer = (name = preferred.value) =>
     mpris.getPlayer(name) || mpris.players[0] || null
 
 const Content = (player: MprisPlayer) => {
-    const revealer = Widget.Revealer({
+    const revealer = Widget.Box({
         click_through: true,
         visible: length.bind().as(l => l > 0),
         transition: direction.bind().as(d => `slide_${d}` as const),
@@ -69,21 +69,14 @@ export default () => {
     })
 
     const update = () => {
-        player = getPlayer()
-        btn.visible = !!player
-
+        player = getPlayer();
+        btn.visible = player != null;
         if (!player)
             return
 
         const content = Content(player)
-        const { revealer } = content.attribute
         btn.child = content
         btn.on_primary_click = () => { player.playPause() }
-        btn.on_secondary_click = () => { player.playPause() }
-        btn.on_scroll_up = () => { player.next() }
-        btn.on_scroll_down = () => { player.previous() }
-        btn.on_hover = () => { revealer.reveal_child = true }
-        btn.on_hover_lost = () => { revealer.reveal_child = false }
     }
 
     return btn

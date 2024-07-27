@@ -2,7 +2,11 @@ window#quicksettings .quicksettings {
     @include floating-widget;
     @include spacing;
 
-    padding: $popover-padding * 1.4;
+    // padding: $popover-padding * 1.4;
+    // height: 100%;
+    margin: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 
     .avatar {
         @include widget;
@@ -115,6 +119,26 @@ window#quicksettings .quicksettings {
         }
     }
 
+    .toggles-box {
+        @include widget;
+        @include spacing;
+        padding: $padding;
+    }
+
+    .settings-stack {
+        @include widget;
+        @include spacing;
+
+        button {
+            @include button($flat: true);
+            padding: $padding;
+        }
+
+        .header {
+            border-bottom: $border-width solid $border-color;
+        }
+    }
+
     .toggle-button {
         @include button;
         font-weight: bold;
@@ -142,15 +166,6 @@ window#quicksettings .quicksettings {
                 border-bottom-left-radius: 0;
             }
         }
-
-        &.active {
-            background-color: $primary-bg;
-
-            label,
-            image {
-                color: $primary-fg;
-            }
-        }
     }
 
     .simple-toggle {
@@ -173,5 +188,62 @@ window#quicksettings .quicksettings {
         .player {
             @include media;
         }
+    }
+
+    .notifications {
+        .header {
+            margin-bottom: $spacing;
+            margin-right: $spacing;
+
+            >label {
+                margin-left: $radius * .5;
+            }
+
+            button {
+                @include button;
+                padding: $padding*.7 $padding;
+            }
+        }
+
+        .notification-scrollable {
+            @include scrollable($top: true, $bottom: true);
+        }
+
+        .notification-list {
+            margin-right: $spacing;
+        }
+
+        .notification {
+            @include notification;
+            @include widget;
+            padding: $padding;
+            margin-bottom: $spacing;
+        }
+
+        .placeholder {
+            image {
+                font-size: 7em;
+            }
+
+            label {
+                font-size: 1.2em;
+            }
+        }
+    }
+
+    .clock-box {
+        padding: $padding;
+
+        .clock {
+            font-size: 5em;
+        }
+
+        .uptime {
+            color: transparentize($fg, 0.2);
+        }
+    }
+
+    .calendar {
+        @include calendar;
     }
 }

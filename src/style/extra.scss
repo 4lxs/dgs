@@ -31,19 +31,19 @@ window.popup {
             background-color: $border-color;
         }
 
-        menuitem {
-            @include button;
-            padding: $spacing * .5;
-            margin: ($spacing * .5) 0;
-
-            &:first-child {
-                margin-top: 0;
-            }
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
+        // menuitem {
+        //     @include button;
+        //     padding: $spacing * .5;
+        //     margin: ($spacing * .5) 0;
+        //
+        //     &:first-child {
+        //         margin-top: 0;
+        //     }
+        //
+        //     &:last-child {
+        //         margin-bottom: 0;
+        //     }
+        // }
     }
 }
 

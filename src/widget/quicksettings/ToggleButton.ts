@@ -55,9 +55,11 @@ export const ArrowToggleButton = ({
     connection: [service, condition],
 }: ArrowToggleButtonProps) => Widget.Box({
     class_name: "toggle-button",
-    setup: self => self.hook(service, () => {
-        self.toggleClassName("active", condition())
-    }),
+    setup: self => {
+            self.hook(service, () => {
+                self.toggleClassName("active", condition())
+            });
+    },
     children: [
         Widget.Button({
             child: Widget.Box({

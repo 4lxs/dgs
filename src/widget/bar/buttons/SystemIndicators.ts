@@ -10,6 +10,10 @@ const network = await Service.import("network");
 const powerprof = await Service.import("powerprofiles");
 const battery = await Service.import("battery");
 const { percentage, low } = options.bar.battery;
+import { clock } from "lib/variables"
+
+const { format, action } = options.bar.date
+const time = Utils.derive([clock, format], (c, f) => c.format(f) || "")
 
 const ProfileIndicator = () => {
     const visible = asusctl.available
@@ -101,30 +105,36 @@ const AudioIndicator = () =>
         self.icon = cons.find(([n]) => n <= vol * 100)?.[1] || "";
     });
 
-const BatteryIndicator = () =>
-    Widget.Box({
-        class_name: "battery-bar",
-        children: [
-            Widget.Icon({
-                setup: (self) =>
-                    self.hook(battery, () => {
-                        self.icon =
-                            battery.charging || battery.charged
-                                ? icons.battery.charging
-                                : battery.icon_name;
-                    }),
-            }),
-            Widget.Label({
-                label: battery.bind("percent").as((p) => `${p}%`),
-            }),
-        ],
-        setup: (self) =>
-            self
-            .hook(battery, (w) => {
-                w.toggleClassName("charging", battery.charging || battery.charged);
-                w.toggleClassName("low", battery.percent < low.value);
-            }),
-    });
+// const BatteryIndicator = () =>
+//     Widget.Box({
+//         class_name: "battery-bar",
+//         children: [
+//             Widget.Icon({
+//                 setup: (self) =>
+//                     self.hook(battery, () => {
+//                         self.icon =
+//                             battery.charging || battery.charged
+//                                 ? icons.battery.charging
+//                                 : battery.icon_name;
+//                     }),
+//             }),
+//             Widget.Label({
+//                 label: battery.bind("percent").as((p) => `${p}%`),
+//             }),
+//         ],
+//         setup: (self) =>
+//             self
+//             .hook(battery, (w) => {
+//                 w.toggleClassName("charging", battery.charging || battery.charged);
+//                 w.toggleClassName("low", battery.percent < low.value);
+//             }),
+//     });
+
+const DateIndicator = () => Widget.Label({
+    class_name: "date",
+    justification: "center",
+    label: time.bind(),
+});
 
 export default () =>
     PanelButton({
@@ -140,6 +150,7 @@ export default () =>
             NetworkIndicator(),
             AudioIndicator(),
             MicrophoneIndicator(),
-            BatteryIndicator(),
+            // BatteryIndicator(),
+            DateIndicator(),
         ]),
     });

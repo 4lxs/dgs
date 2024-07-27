@@ -13,4 +13,11 @@
     image {
         color: transparent;
     }
+
+    &:active,
+    &.on,
+    &.active,
+    &:checked {
+        background-color: $primary-bg;
+    }
 }

@@ -47,6 +47,14 @@ $button-radius: $radius;
         &.active .colored {
             color: $primary-fg;
         }
+
+        .window-title {
+            margin-left: $spacing;
+
+            label {
+                font-size: $font-size * .6;
+            }
+        }
     }
 
     .workspaces {
@@ -131,6 +139,11 @@ $button-radius: $radius;
                 text-shadow: $text-shadow;
             }
         }
+    }
+
+    .date {
+        font-size: $font-size * .7;
+        padding-left: $padding;
     }
 
     .battery-bar {

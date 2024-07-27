@@ -8,12 +8,12 @@ import { BluetoothToggle, BluetoothDevices } from "./widgets/Bluetooth"
 import { DND } from "./widgets/DND"
 import { DarkModeToggle } from "./widgets/DarkMode"
 import { MicMute } from "./widgets/MicMute"
-import { Media } from "./widgets/Media"
+import { SettingsStack } from "./widgets/SettingsStack"
 import PopupWindow from "widget/PopupWindow"
 import options from "options"
 
 const { bar, quicksettings } = options
-const media = (await Service.import("mpris")).bind("players")
+// const media = (await Service.import("mpris")).bind("players")
 const layout = Utils.derive([bar.position, quicksettings.position], (bar, qs) =>
     `${bar}-${qs}` as const,
 )
@@ -35,10 +35,28 @@ const Row = (
 
 const Settings = () => Widget.Box({
     vertical: true,
+    vexpand: true,
     class_name: "quicksettings vertical",
     css: quicksettings.width.bind().as(w => `min-width: ${w}px;`),
     children: [
         Header(),
+        Widget.Box({
+            class_name: "toggles-box vertical",
+            vertical: true,
+            children: [
+                Row(
+                    [NetworkToggle, BluetoothToggle],
+                    [WifiSelection, BluetoothDevices],
+                ),
+                Row(
+                    [ProfileToggle, DarkModeToggle],
+                    [ProfileSelector],
+                ),
+                Row(
+                    [DND],
+                ),
+            ],
+        }),
         Widget.Box({
             class_name: "sliders-box vertical",
             vertical: true,
@@ -51,27 +69,15 @@ const Settings = () => Widget.Box({
                 Brightness(),
             ],
         }),
-        Row(
-            [NetworkToggle, BluetoothToggle],
-            [WifiSelection, BluetoothDevices],
-        ),
-        Row(
-            [ProfileToggle, DarkModeToggle],
-            [ProfileSelector],
-        ),
-        Row([MicMute, DND]),
-        Widget.Box({
-            visible: media.as(l => l.length > 0),
-            child: Media(),
-        }),
+        SettingsStack(),
     ],
 })
 
 const QuickSettings = () => PopupWindow({
     name: "quicksettings",
     exclusivity: "exclusive",
-    transition: bar.position.bind().as(pos => pos === "top" ? "slide_down" : "slide_up"),
-    layout: layout.value,
+    transition: "slide_left",
+    layout: "right",
     child: Settings(),
 })
 
