@@ -1,7 +1,8 @@
 import icons from "lib/icons"
 import { uptime } from "lib/variables"
 import options from "options"
-import powermenu, { Action } from "service/powermenu"
+
+const { sleep, reboot, logout, shutdown } = options.powermenu
 
 const battery = await Service.import("battery")
 const { image, size } = options.quicksettings.avatar
@@ -22,10 +23,42 @@ const Avatar = () => Widget.Box({
     `),
 })
 
-const SysButton = (action: Action) => Widget.Button({
+const ConfirmButton = ({ setup, on_clicked, ...rest }) => Widget.Button({
+    on_clicked: (self) => {
+        const context = self.get_style_context();
+        if (context.has_class('activated')) {
+            on_clicked()
+            context.remove_class('activated');
+        } else {
+            context.add_class('activated');
+        }
+    },
+    ...rest,
+    setup: (self) => {
+        if (setup) {
+            setup(self);
+        }
+
+        self.connect('focus-out-event', () => {
+            const context = self.get_style_context();
+            context.remove_class('activated');
+        })
+    } 
+})
+
+const SysButton = (action: Action) => ConfirmButton({
     vpack: "center",
     child: Widget.Icon(icons.powermenu[action]),
-    on_clicked: () => powermenu.action(action),
+    on_clicked: () => {
+        const cmd = {
+            sleep: sleep.value,
+            reboot: reboot.value,
+            logout: logout.value,
+            shutdown: shutdown.value,
+        }[action]
+
+        Utils.exec(cmd)
+    }
 })
 
 export const Header = () => Widget.Box(

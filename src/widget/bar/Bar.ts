@@ -3,7 +3,6 @@ import ColorPicker from "./buttons/ColorPicker"
 import Date from "./buttons/Date"
 import Launcher from "./buttons/Launcher"
 import Media from "./buttons/Media"
-import PowerMenu from "./buttons/PowerMenu"
 import SysTray from "./buttons/SysTray"
 import SystemIndicators from "./buttons/SystemIndicators"
 import Taskbar from "./buttons/Taskbar"
@@ -23,7 +22,6 @@ const widget = {
     date: Date,
     launcher: Launcher,
     media: Media,
-    powermenu: PowerMenu,
     systray: SysTray,
     system: SystemIndicators,
     taskbar: Taskbar,

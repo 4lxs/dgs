@@ -24,6 +24,12 @@ window#quicksettings .quicksettings {
             image {
                 font-size: 1.4em;
             }
+
+            &.activated {
+                background-color: $primary-bg;
+                color: $primary-fg;
+            }
+
         }
     }
 
